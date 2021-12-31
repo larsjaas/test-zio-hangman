@@ -198,7 +198,8 @@ def gameLoop(oldState: State): ZIO[Console, IOException, Unit] =
         guessResult = analyzeNewGuess(oldState, newState, guess)
         _ <- guessResult match {
             case GuessResult.Won =>
-                putStrLn(s"Congratulations ${newState.name.name}!")
+                putStrLn(s"Congratulations ${newState.name.name}!") *>
+                    renderState(newState)
             case GuessResult.Lost =>
                 putStrLn(s"Sorry ${newState.name.name}! You lost! Word was: ${newState.word.word}") *>
                     renderState(newState)
