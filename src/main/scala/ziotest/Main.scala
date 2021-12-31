@@ -74,16 +74,6 @@ lazy val chooseWord: URIO[Random, Word] =
         word <- ZIO.fromOption(words.lift(index).flatMap(Word.make)).orDieWith(_ => new Error("Boom!"))
     } yield word
 
-
-//def hangmanStages(stage: Int): URIO[Nothing, String] = {
-//    stage match {
-//        case 0 => ZIO.succeed("""hallo 0""")
-//        case 1 => ZIO.succeed("""hallo 1""")
-//        case 2 => ZIO.succeed("""hallo 2""")
-//        case _ => ZIO.succeed("""hallo 3""")
-//    }
-//}
-
 val hangmanStages = Map[Int, String](
     0 -> """
             # 
@@ -119,7 +109,7 @@ val hangmanStages = Map[Int, String](
             # |     /|\
             # |      |
             # |     / \
-            # ------------
+            # +-----------
             #""".stripMargin('#'),
     4 -> """
             # +--+----
@@ -128,7 +118,7 @@ val hangmanStages = Map[Int, String](
             # |     /|\
             # |      |
             # |     / \
-            # ------------
+            # +-----------
             #""".stripMargin('#'),
     5 -> """
             # +--+----
@@ -137,7 +127,7 @@ val hangmanStages = Map[Int, String](
             # |     /|\
             # |      |
             # |     / \
-            # ------------
+            # +-----------
             #""".stripMargin('#'),
     6 -> """
             # +--+----
@@ -149,8 +139,8 @@ val hangmanStages = Map[Int, String](
             # +-+   / \
             #""".stripMargin('#')
 )
-def renderState(state: State): URIO[Console, Unit] = {
 
+def renderState(state: State): URIO[Console, Unit] = {
     /*
       --------
       |      |
